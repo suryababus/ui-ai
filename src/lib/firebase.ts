@@ -93,10 +93,6 @@ export const updateUserDetails = async () => {
   await auth.authStateReady();
   const user = auth.currentUser;
 
-  if (!user) {
-    logout();
-  }
-
   console.log("user", user);
   if (!user) return;
   setUserId(analytics, user.uid);
