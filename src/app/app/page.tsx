@@ -6,8 +6,6 @@ import { FunctionComponent } from "react";
 interface AppPageProps {}
 
 const AppPage: FunctionComponent<AppPageProps> = () => {
-  const loggedin = false;
-
   const headersList = headers();
   const email = headersList.get("email") ?? "";
 

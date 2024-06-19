@@ -38,6 +38,8 @@ const firebaseConfig = {
 let analytics: Analytics;
 export let auth: Auth;
 
+let messageBeforeInit: Payload[] = [];
+
 const initializeFirebase = async () => {
   const supported = await isSupported();
   if (!supported) {
@@ -48,6 +50,13 @@ const initializeFirebase = async () => {
   const app = initializeApp(firebaseConfig);
   analytics = getAnalytics(app);
   auth = getAuth(app);
+
+  if (messageBeforeInit.length > 0) {
+    messageBeforeInit.forEach((payload) => {
+      emitEvent(payload);
+    });
+    messageBeforeInit = [];
+  }
 };
 
 initializeFirebase();
@@ -62,6 +71,10 @@ export const emitEvent = (payload: Payload) => {
     console.log("EVENT", payload);
     return;
   }
+  if (!analytics) {
+    messageBeforeInit.push(payload);
+    return;
+  }
 
   logEvent(analytics, payload.event, payload.data);
 };
@@ -71,11 +84,7 @@ export const googleAuth = () => {
   signInWithPopup(auth, provider)
     .then(async (result) => {
       const token = await result.user.getIdToken();
-      // The signed-in user info.
-      const user = result.user;
-      console.log("id-token");
-      console.log("user", user);
-      console.log("token", token);
+
       cookies.set("token", token, { path: "/" });
       window.location.reload();
       // IdP data available using getAdditionalUserInfo(result)

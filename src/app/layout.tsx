@@ -10,6 +10,7 @@ import UserProfile from "@/components/ui/user-profile";
 import { headers } from "next/headers";
 import { Loader } from "@/components/ui-generator";
 import NavBarItems from "@/components/ui/nav-bar-items";
+import { WebVitals } from "@/components/analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,7 @@ export default function RootLayout({
             {children}
           </div>
         </Suspense>
+        <WebVitals />
       </body>
     </html>
   );
