@@ -17,9 +17,11 @@ import {
   logEvent,
   isSupported,
   Analytics,
+  setUserProperties,
 } from "firebase/analytics";
 
 import { isDevelopement } from "./helper";
+import { logout } from "./login";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -49,7 +51,10 @@ const initializeFirebase = async () => {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   analytics = getAnalytics(app);
+
   auth = getAuth(app);
+  await auth.authStateReady();
+  await updateUserDetails();
 
   if (messageBeforeInit.length > 0) {
     messageBeforeInit.forEach((payload) => {
@@ -66,17 +71,38 @@ type Payload = {
   data?: any;
 };
 
-export const emitEvent = (payload: Payload) => {
-  if (isDevelopement) {
-    console.log("EVENT", payload);
-    return;
-  }
-  if (!analytics) {
+export const emitEvent = async (payload: Payload) => {
+  if (!auth) {
     messageBeforeInit.push(payload);
     return;
   }
 
+  // if (isDevelopement) {
+  //   console.log("EVENT", payload);
+  //   return;
+  // }
+
   logEvent(analytics, payload.event, payload.data);
+};
+
+export const updateUserDetails = async () => {
+  if (!auth) {
+    return;
+  }
+  await auth.authStateReady();
+  const user = auth.currentUser;
+
+  if (!user) {
+    logout();
+  }
+
+  console.log("user", user);
+  if (!user) return;
+  setUserProperties(analytics, {
+    email: user.email,
+    name: user.displayName,
+    id: user.uid,
+  });
 };
 
 export const googleAuth = () => {
@@ -84,6 +110,7 @@ export const googleAuth = () => {
   signInWithPopup(auth, provider)
     .then(async (result) => {
       const token = await result.user.getIdToken();
+      await updateUserDetails();
 
       cookies.set("token", token, { path: "/" });
       window.location.reload();

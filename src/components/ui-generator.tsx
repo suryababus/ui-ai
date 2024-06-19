@@ -44,6 +44,12 @@ export default function UIGenerator() {
   }, []);
 
   async function onClick() {
+    emitEvent({
+      event: "click on generate",
+      data: {
+        prompt,
+      },
+    });
     try {
       setLoading(true);
       const res = await generate(prompt);
@@ -53,10 +59,12 @@ export default function UIGenerator() {
         throw new Error(res.error);
       }
 
+      const textStream = readStreamableValue(output);
+      let finalText = "";
       setComponentString("");
-      for await (const textPart of readStreamableValue(output)) {
+      for await (const textPart of textStream) {
         console.log(textPart);
-
+        finalText += textPart;
         setComponentString((prev) => {
           let newText = prev + textPart;
           newText = newText.replaceAll("`", "");
@@ -68,6 +76,16 @@ export default function UIGenerator() {
           return newText;
         });
       }
+
+      emitEvent({
+        event: "component generated",
+        data: {
+          prompt,
+          promptLength: prompt.length,
+          component: finalText,
+          componentLength: finalText.length,
+        },
+      });
     } catch (error) {
       setShowRateLimitModal(true);
     }

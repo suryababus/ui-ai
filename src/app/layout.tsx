@@ -3,7 +3,6 @@ import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Suspense, useEffect } from "react";
-import { emitEvent, googleAuth } from "@/lib/firebase";
 import BetaTag from "@/components/ui/beta-tag";
 import Link from "next/link";
 import UserProfile from "@/components/ui/user-profile";
@@ -15,7 +14,7 @@ import { WebVitals } from "@/components/analytics";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "UI by AI",
+  title: "LLM-Minds UI Generator",
   description: "Generate beautiful UI components with AI",
 };
 

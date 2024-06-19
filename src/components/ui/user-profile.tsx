@@ -1,6 +1,6 @@
 "use client";
 
-import { googleAuth } from "@/lib/firebase";
+import { googleAuth, updateUserDetails } from "@/lib/firebase";
 import { logout } from "@/lib/login";
 import { headers } from "next/headers";
 import { FunctionComponent, useEffect, useState } from "react";
@@ -16,6 +16,10 @@ const UserProfile: FunctionComponent<UserProfileProps> = (
   const [showDropDown, setShowDropDown] = useState(false);
   const { email, profileImg } = props;
   const loggedIn = !!email;
+
+  useEffect(() => {
+    updateUserDetails();
+  }, []);
 
   if (!loggedIn) {
     return null;

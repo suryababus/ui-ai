@@ -1,4 +1,5 @@
 "use client";
+import { emitEvent } from "@/lib/firebase";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -27,6 +28,12 @@ const NavBarItems = () => {
 
   useEffect(() => {
     setActive(pathName);
+    emitEvent({
+      event: "page_view",
+      data: {
+        path: pathName,
+      },
+    });
   }, [pathName]);
 
   return links.map((link) => (
