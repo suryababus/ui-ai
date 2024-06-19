@@ -21,11 +21,13 @@
     "lucide-react": "^0.395.0",
     "monaco-editor": "^0.49.0",
     "next": "14.2.4",
+    "rate-limiter-flexible": "^5.0.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "universal-cookie": "^7.1.4"
+    "universal-cookie": "^7.1.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "typescript": "^5",
