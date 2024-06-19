@@ -18,6 +18,7 @@ import {
   isSupported,
   Analytics,
   setUserProperties,
+  setUserId,
 } from "firebase/analytics";
 
 import { isDevelopement } from "./helper";
@@ -98,6 +99,7 @@ export const updateUserDetails = async () => {
 
   console.log("user", user);
   if (!user) return;
+  setUserId(analytics, user.uid);
   setUserProperties(analytics, {
     email: user.email,
     name: user.displayName,
