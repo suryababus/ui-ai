@@ -48,7 +48,7 @@ export async function generate(prompt: string) {
   (async () => {
     const { textStream } = await streamText({
       model,
-      prompt,
+      prompt: prompt.slice(0, 1000),
       system: `
       write a html for the prompt using tailwindcss and plain html
   
@@ -62,6 +62,9 @@ export async function generate(prompt: string) {
       eg: <img src="https://picsum.photos/200/300" />
       ----
       Do not include svg icons.
+      Do not add screen height as min-h-screen instead use w-full and h-full for parent container.
+      Do not add href to anchor tags.
+      Do not use script, style, or any other html  tags.
       `,
     });
 

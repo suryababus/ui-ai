@@ -92,8 +92,6 @@ export const updateUserDetails = async () => {
   }
   await auth.authStateReady();
   const user = auth.currentUser;
-
-  console.log("user", user);
   if (!user) return;
   setUserId(analytics, user.uid);
   setUserProperties(analytics, {

@@ -21,21 +21,21 @@ const HomePage: FunctionComponent<HomePageProps> = () => {
             href="/app"
             className="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600"
           >
-            Get Started
+            Try it for free
           </a>
         </div>
 
         <img
           src="/ui-generator.png"
           alt="UI Generator"
-          className="w-3/4 mt-8 border-4 border-blue-400 justify-self-center self-center"
+          className="w-3/4 mt-8 justify-self-center self-center bg-white p-2 rounded-xl shadow-xl"
         />
       </main>
 
       <footer className="bg-white shadow">
         <div className="container mx-auto px-6 py-4 text-center">
           <p className="text-gray-600">
-            &copy; 2023 LLM-Minds UI Generator. All rights reserved.
+            &copy; 2024 LLM-Minds UI Generator. All rights reserved.
           </p>
         </div>
       </footer>

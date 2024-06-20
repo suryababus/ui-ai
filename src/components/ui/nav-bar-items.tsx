@@ -14,7 +14,7 @@ const links = [
     href: "/pricing",
   },
   {
-    name: "Contact Us",
+    name: "Contact",
     href: "/contact-us",
   },
   {

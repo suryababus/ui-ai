@@ -1,0 +1,9 @@
+{
+  "https://unpkg.com/browse/prettier@3.3.2/plugins/typescript.js": { "integrity": "sha512-FqbmtWiaVvFkaBJxqfs0gywz1JmcABlnwyU5cs7w5CHUN3IidL6H+ESQLt7raDXTZxbzCAZwMQ0ldPfnyNq6fw==", "contentType": "text/html; charset=utf-8" },
+  "https://unpkg.com/prettier@3.3.2/plugins/babel.mjs": { "integrity": "sha512-GBB/+nWPyJOzEiVCEiV03uXsPmDgrN8o97T9gKtqgnkmNa7R7t5pogdD6yU5qh0QzoeqwKNUXEND+Ql2j4SjtA==", "contentType": "application/javascript; charset=utf-8" },
+  "https://unpkg.com/prettier@3.3.2/plugins/estree.mjs": { "integrity": "sha512-vlmDnw3nGqb3/X8gFjgT878HWjYPtczaXeSfXBHWsazSHTjMr0/BwRSNZCHcvCQx5nxXeD1XBr/yDML9WB4EHQ==", "contentType": "application/javascript; charset=utf-8" },
+  "https://unpkg.com/prettier@3.3.2/plugins/graphql.mjs": { "integrity": "sha512-e4Amn3S0cZWwoJ34sy1PsOSgEDSW0K5BFe5sNOeaLQh6pCGvsmsGmDTL7AC03Gwt18hOExsUI4F7V5/Sk8mmig==", "contentType": "application/javascript; charset=utf-8" },
+  "https://unpkg.com/prettier@3.3.2/plugins/typescript.mjs": { "integrity": "sha512-rWKvs13PbWwUz/LaEcP8hfFPtqftB0i3AbzitG3h77CkqM3QcnUhBdbleQSrJwUyDcthIrjgFb2enFPsKPCa5Q==", "contentType": "application/javascript; charset=utf-8" },
+  "https://unpkg.com/prettier@3.3.2/standalone.mjs": { "integrity": "sha512-xEclX8GH9r2UGHbEfw6YVurfkl1N7X6dCki19PU7Llpr0qB/9gp7SYeKog60CfQyA6Ad/wvoAOZfJ85aYHfplQ==", "contentType": "application/javascript; charset=utf-8" },
+  "version": 1
+}

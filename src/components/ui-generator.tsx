@@ -15,7 +15,52 @@ import { emitEvent } from "@/lib/firebase";
 import { motion } from "framer-motion";
 import { RateLimitedModal } from "./ui/rate-limited-modal";
 
-const _componentString = ``;
+const _componentString = `
+<div class="w-full h-full bg-gray-900 text-white">
+  <header class="flex justify-between items-center p-6">
+    <h1 class="text-3xl font-bold">StreamFlix</h1>
+    <nav>
+      <ul class="flex space-x-6">
+        <li><a class="hover:text-gray-400">Home</a></li>
+        <li><a class="hover:text-gray-400">Movies</a></li>
+        <li><a class="hover:text-gray-400">TV Shows</a></li>
+        <li><a class="hover:text-gray-400">My List</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main class="flex flex-col items-center p-6">
+    <section class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">Unlimited movies, TV shows, and more.</h2>
+      <p class="text-lg mb-6">Watch anywhere. Cancel anytime.</p>
+      <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Get Started</button>
+    </section>
+    
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-gray-800 p-4 rounded">
+        <img src="https://picsum.photos/200/300" alt="Movie 1" class="w-full h-48 object-cover rounded mb-4" />
+        <h3 class="text-xl font-bold mb-2">Movie Title 1</h3>
+        <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded">
+        <img src="https://picsum.photos/200/300" alt="Movie 2" class="w-full h-48 object-cover rounded mb-4" />
+        <h3 class="text-xl font-bold mb-2">Movie Title 2</h3>
+        <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded">
+        <img src="https://picsum.photos/200/300" alt="Movie 3" class="w-full h-48 object-cover rounded mb-4" />
+        <h3 class="text-xl font-bold mb-2">Movie Title 3</h3>
+        <p class="text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="text-center p-6 mt-12">
+    <p class="text-gray-500">&copy; 2023 StreamFlix. All rights reserved.</p>
+  </footer>
+</div>
+
+`;
 export const Loader = () => (
   <div className="flex-1 w-full h-full bg-gray-400 animate-pulse" />
 );
@@ -115,38 +160,76 @@ export default function UIGenerator() {
           </button>
           {/* <ComponentRenderer componentString={componentString} /> */}
 
-          {componentString !== "" ? (
-            <div className="grid grid-cols-2 gap-4  w-full min-h-96">
-              <div className=" flex flex-col w-full h-full ">
-                <div className="">
-                  <span className="bg-blue-500 text-white p-2">HTML</span>
-                </div>
-                <Editor
-                  className={` flex-1 overflow-scroll bg-muted/50 border-4 border-blue-500  min-h-96 ${
-                    isPending ? "animate-pulse" : ""
-                  }`}
-                  defaultLanguage="javascript"
-                  value={componentString}
-                  onChange={(value) => setComponentString(value ?? "")}
-                  theme=""
-                  loading={<Loader />}
-                  options={{
-                    minimap: { enabled: false },
-                  }}
-                ></Editor>
+          <div className="grid grid-cols-2 gap-4  w-full min-h-[60vh]">
+            <div className=" flex flex-col w-full h-full ">
+              <div className="flex flex-row gap-4">
+                <span className="bg-blue-500 text-white p-2">HTML</span>
+                <ReactButton html={componentString} />
               </div>
-              <div className=" flex flex-col w-full h-full ">
-                <div className="">
-                  <span className="bg-blue-500 text-white p-2">UI</span>
-                </div>
-                <RenderComponent html={componentString} />
-              </div>
+              <Editor
+                className={` flex-1 overflow-scroll bg-muted/50 border-4 border-blue-500  min-h-96 ${
+                  isPending ? "animate-pulse" : ""
+                }`}
+                defaultLanguage="javascript"
+                value={componentString}
+                onChange={(value) => setComponentString(value ?? "")}
+                theme=""
+                loading={<Loader />}
+                options={{
+                  minimap: { enabled: false },
+                }}
+              ></Editor>
             </div>
-          ) : null}
-
-          <div id="output" className="h-full w-full overflow-scroll"></div>
+            <div className=" flex flex-col w-full h-full ">
+              <div className="flex flex-row justify-between">
+                <span className="bg-blue-500 text-white p-2">UI</span>
+              </div>
+              <RenderComponent html={componentString} />
+            </div>
+          </div>
         </motion.div>
       </Suspense>
     </main>
+  );
+}
+
+type Props = {
+  html: string;
+};
+
+import * as prettier from "https://unpkg.com/prettier@3.3.2/standalone.mjs";
+import babel from "https://unpkg.com/prettier@3.3.2/plugins/babel.mjs";
+import estree from "https://unpkg.com/prettier@3.3.2/plugins/estree.mjs";
+import { useToast } from "./ui/useToast";
+// import typescript from "https://unpkg.com/prettier@3.3.2/plugins/typescript.mjs";
+
+function ReactButton({ html }: Props) {
+  const reactFormatedHtml = html.replace(/class=/g, "className=");
+  const { showMessage } = useToast();
+
+  // add import to html
+  const reactFormatedHtmlWithImport = `
+  import React from 'react';
+  export const Component = () => {
+    return (${reactFormatedHtml})
+  }
+  `;
+
+  const onClick = async () => {
+    const formatted = await prettier.format(reactFormatedHtmlWithImport, {
+      parser: "babel",
+      plugins: [estree, babel],
+    });
+    console.log(formatted);
+    showMessage("Copied to clipboard");
+    navigator.clipboard.writeText(formatted);
+  };
+
+  return (
+    <span className="m-1">
+      <span className="bg-blue-500 text-white p-2 rounded-lg" onClick={onClick}>
+        Copy React
+      </span>
+    </span>
   );
 }

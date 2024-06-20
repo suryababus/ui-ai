@@ -10,6 +10,7 @@ import { headers } from "next/headers";
 import { Loader } from "@/components/ui-generator";
 import NavBarItems from "@/components/ui/nav-bar-items";
 import { WebVitals } from "@/components/analytics";
+import { ToastProvider } from "@/components/ui/useToast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +28,8 @@ export default function RootLayout({
   const email = headersList.get("email") ?? "";
   const profileImg = headersList.get("profile-img") ?? "";
   return (
-    <html lang="en">
-      <Script src="https://cdn.tailwindcss.com"></Script>
+    <html>
+      {/* <Script src="https://cdn.tailwindcss.com"></Script> */}
       <body className={`${inter.className} light  text-foreground`}>
         <Suspense fallback={<Loader />}>
           <div className="min-h-screen w-full bg-gray-100 flex flex-col justify-between ">
@@ -48,6 +49,7 @@ export default function RootLayout({
             {children}
           </div>
         </Suspense>
+        <ToastProvider />
         <WebVitals />
       </body>
     </html>
