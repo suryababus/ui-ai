@@ -40,7 +40,7 @@ export default function RenderComponent({ html }: Props) {
               <div
                 id="root"
                 ref={divRef}
-                className="light text-foreground w-full overflow-scroll grid place-items-center bg-muted/50 border-4 border-blue-500  min-h-96 h-full"
+                className="light text-foreground w-full overflow-scroll grid place-items-center bg-muted/50 border-4 border-blue-500 rounded-lg rounded-tl-none min-h-96 h-full"
                 dangerouslySetInnerHTML={{ __html: html }}
               />
             </>,

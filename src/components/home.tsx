@@ -17,12 +17,12 @@ const HomePage: FunctionComponent<HomePageProps> = () => {
           <p className="text-gray-600 mb-8">
             Transform your ideas into beautiful UI components effortlessly.
           </p>
-          <a
+          <Link
             href="/app"
             className="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600"
           >
             Try it for free
-          </a>
+          </Link>
         </div>
 
         <img
