@@ -11,6 +11,7 @@ import { Loader } from "@/components/ui-generator";
 import NavBarItems from "@/components/ui/nav-bar-items";
 import { WebVitals } from "@/components/analytics";
 import { ToastProvider } from "@/components/ui/useToast";
+import Icon from "./icon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,11 +34,14 @@ export default function RootLayout({
       <body className={`${inter.className} light  text-foreground`}>
         <Suspense fallback={<Loader />}>
           <div className="min-h-screen w-full bg-gray-100 flex flex-col justify-between ">
-            <header className="bg-white shadow sticky top-0 w-full z-30">
-              <div className="container mx-auto px-6 py-4 flex w-full justify-between items-center">
+            <header className=" shadow sticky top-0 w-full z-30">
+              <div className="container  px-6 py-4 flex w-full justify-between items-center">
                 <BetaTag>
-                  <span className="text-2xl font-bold text-gray-800">
-                    LLM-Minds UI Generator
+                  <span className="text-2xl font-bold text-gray-800 flex flex-row">
+                    <span className="text-2xl font-bold bg-black px-2 mr-2 text-white ">
+                      UI
+                    </span>
+                    LLM-Minds
                   </span>
                 </BetaTag>
                 <nav className="flex flex-row items-center">
