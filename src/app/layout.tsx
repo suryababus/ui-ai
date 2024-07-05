@@ -33,8 +33,8 @@ export default function RootLayout({
       {/* <Script src="https://cdn.tailwindcss.com"></Script> */}
       <body className={`${inter.className} light  text-foreground`}>
         <Suspense fallback={<Loader />}>
-          <div className="min-h-screen w-full bg-gray-100 flex flex-col justify-between ">
-            <header className=" shadow sticky top-0 w-full z-30">
+          <div className="min-h-screen w-full bg-gray-100 flex flex-col justify-between">
+            <header className=" shadow sticky top-0 w-full z-30 bg-white">
               <div className="container  px-6 py-4 flex w-full justify-between items-center">
                 <BetaTag>
                   <span className="text-2xl font-bold text-gray-800 flex flex-row">
@@ -44,7 +44,7 @@ export default function RootLayout({
                     LLM-Minds
                   </span>
                 </BetaTag>
-                <nav className="flex flex-row items-center">
+                <nav className="flex flex-row items-center ">
                   <NavBarItems />
                   <UserProfile email={email} profileImg={profileImg} />
                 </nav>
